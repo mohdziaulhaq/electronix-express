@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
 
         String userId = UUID.randomUUID().toString();
-
+        userDto.setUserId(userId);
         //dto to entity
         User user = dtoToEntity(userDto);
 
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    User dtoToEntity(UserDto dto){
+    private User dtoToEntity(UserDto dto){
         User user = User.builder().userId(dto.getUserId()).
                 name(dto.getName()).
                 password(dto.getPassword()).
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    UserDto entityToDto(User savedUser){
+    private UserDto entityToDto(User savedUser){
         UserDto userDto = UserDto.builder().userId(savedUser.getUserId()).
                 name(savedUser.getName()).
                 password(savedUser.getPassword()).

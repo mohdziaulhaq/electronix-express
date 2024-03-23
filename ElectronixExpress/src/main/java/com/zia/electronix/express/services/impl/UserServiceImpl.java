@@ -2,12 +2,20 @@ package com.zia.electronix.express.services.impl;
 
 import com.zia.electronix.express.dtos.UserDto;
 import com.zia.electronix.express.entities.User;
+import com.zia.electronix.express.repositories.UserRepository;
 import com.zia.electronix.express.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    UserRepository repository;
     @Override
     public UserDto createUser(UserDto userDto) {
 
@@ -15,41 +23,61 @@ public class UserServiceImpl implements UserService {
         userDto.setUserId(userId);
         //dto to entity
         User user = dtoToEntity(userDto);
-
+        User savedUser = repository.save(user);
         //entity to dto
-        UserDto returnDto = entityToDto(user);
+        UserDto returnDto = entityToDto(savedUser);
 
         return returnDto;
     }
 
     @Override
     public UserDto updateUser(UserDto userDto, String userId) {
-        return null;
+
+        User user = repository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with given id"));
+        user.setName(userDto.getName());
+        user.setGender(userDto.getGender());
+        user.setPassword(userDto.getPassword());
+
+        UserDto updatedDto = entityToDto(user);
+        return updatedDto;
     }
 
     @Override
     public void deleteUser(String userId) {
+        User user = repository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with given id"));
 
+        repository.delete(user);
     }
 
     @Override
     public List<UserDto> getAllUsers() {
-        return null;
+
+        List<User> users = repository.findAll();
+        List<UserDto> usersDtoList = users.stream().map(user -> entityToDto(user)).collect(Collectors.toList());
+        return usersDtoList;
     }
 
     @Override
-    public UserDto getUser(String userId) {
-        return null;
+    public UserDto getUserById(String userId) {
+
+        User user = repository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with given ID"));
+        return entityToDto(user);
     }
 
     @Override
     public UserDto getUserByEmail(String email) {
-        return null;
+
+        User user = repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with given email"));
+
+        return entityToDto(user);
     }
 
     @Override
     public List<UserDto> searchUser(String keyword) {
-        return null;
+
+        List<User> users = repository.findByNameContaining(keyword);
+        List<UserDto> userDtoList = users.stream().map(user -> entityToDto(user)).collect(Collectors.toList());
+        return userDtoList;
     }
 
     private User dtoToEntity(UserDto dto){

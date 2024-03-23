@@ -4,6 +4,7 @@ import com.zia.electronix.express.dtos.UserDto;
 import com.zia.electronix.express.entities.User;
 import com.zia.electronix.express.repositories.UserRepository;
 import com.zia.electronix.express.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    ModelMapper modelMapper;
     @Override
     public UserDto createUser(UserDto userDto) {
 
@@ -81,22 +85,25 @@ public class UserServiceImpl implements UserService {
     }
 
     private User dtoToEntity(UserDto dto){
-        User user = User.builder().userId(dto.getUserId()).
-                name(dto.getName()).
-                password(dto.getPassword()).
-                email(dto.getEmail()).
-                gender(dto.getGender()).build();
-        return user;
+//        User user = User.builder().userId(dto.getUserId()).
+//                name(dto.getName()).
+//                password(dto.getPassword()).
+//                email(dto.getEmail()).
+//                gender(dto.getGender()).build();
+//        return user;
+
+        return modelMapper.map(dto, User.class);
 
     }
 
     private UserDto entityToDto(User savedUser){
-        UserDto userdto = UserDto.builder().userId(savedUser.getUserId()).
-                name(savedUser.getName()).
-                password(savedUser.getPassword()).
-                email(savedUser.getEmail()).
-                gender(savedUser.getGender()).build();
-        return userdto;
+//        UserDto userdto = UserDto.builder().userId(savedUser.getUserId()).
+//                name(savedUser.getName()).
+//                password(savedUser.getPassword()).
+//                email(savedUser.getEmail()).
+//                gender(savedUser.getGender()).build();
+//        return userdto;
 
+        return modelMapper.map(savedUser, UserDto.class);
     }
 }

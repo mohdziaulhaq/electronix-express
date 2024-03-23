@@ -1,5 +1,6 @@
 package com.zia.electronix.express.controller;
 
+import com.zia.electronix.express.dtos.ApiResponseMessage;
 import com.zia.electronix.express.dtos.UserDto;
 import com.zia.electronix.express.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,10 @@ public class UserController {
     }
     //delete
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable("userId") String userId){
+    public ResponseEntity<ApiResponseMessage> deleteUser(@PathVariable("userId") String userId){
         userService.deleteUser(userId);
-        return new ResponseEntity<>("User is deleted", HttpStatus.OK);
+        ApiResponseMessage message = ApiResponseMessage.builder().message("User is successfully deleted").status(HttpStatus.OK).success(true).build();
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
     //getall
     @GetMapping

@@ -91,12 +91,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDto entityToDto(User savedUser){
-        UserDto userDto = UserDto.builder().userId(savedUser.getUserId()).
+        UserDto userdto = UserDto.builder().userId(savedUser.getUserId()).
                 name(savedUser.getName()).
                 password(savedUser.getPassword()).
                 email(savedUser.getEmail()).
                 gender(savedUser.getGender()).build();
-        return userDto;
+        return userdto;
 
     }
 }

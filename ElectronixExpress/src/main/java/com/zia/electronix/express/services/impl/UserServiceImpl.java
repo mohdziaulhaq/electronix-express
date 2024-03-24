@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService {
         user.setName(userDto.getName());
         user.setGender(userDto.getGender());
         user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
+
+        repository.save(user);
 
         UserDto updatedDto = entityToDto(user);
         return updatedDto;

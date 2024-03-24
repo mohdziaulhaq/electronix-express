@@ -3,9 +3,11 @@ package com.zia.electronix.express.controller;
 import com.zia.electronix.express.dtos.ApiResponseMessage;
 import com.zia.electronix.express.dtos.UserDto;
 import com.zia.electronix.express.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class UserController {
 
     //create
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
         UserDto user = userService.createUser(userDto);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -27,6 +29,7 @@ public class UserController {
     @PutMapping("/{userId}")
     public ResponseEntity<UserDto> updateUser(
             @PathVariable("userId") String userId,
+            @Valid
             @RequestBody UserDto userDto
     ){
         UserDto user = userService.updateUser(userDto,userId);
@@ -54,7 +57,7 @@ public class UserController {
     //getbyemail
     @GetMapping("/email/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email){
-        return new ResponseEntity<>(userService.getUserById(email), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
     }
     //searchuser
     @GetMapping("/search/{keywords}")

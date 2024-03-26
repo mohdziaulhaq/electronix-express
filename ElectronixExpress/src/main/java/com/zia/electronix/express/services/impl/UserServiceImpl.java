@@ -2,6 +2,7 @@ package com.zia.electronix.express.services.impl;
 
 import com.zia.electronix.express.dtos.UserDto;
 import com.zia.electronix.express.entities.User;
+import com.zia.electronix.express.exception.ResourceNotFoundException;
 import com.zia.electronix.express.repositories.UserRepository;
 import com.zia.electronix.express.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto, String userId) {
 
-        User user = repository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with given id"));
+        User user = repository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with given id"));
         user.setName(userDto.getName());
         user.setGender(userDto.getGender());
         user.setPassword(userDto.getPassword());
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(String userId) {
-        User user = repository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with given id"));
+        User user = repository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with given id"));
 
         repository.delete(user);
     }
@@ -67,14 +68,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(String userId) {
 
-        User user = repository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with given ID"));
+        User user = repository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with given ID"));
         return entityToDto(user);
     }
 
     @Override
     public UserDto getUserByEmail(String email) {
 
-        User user = repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with given email"));
+        User user = repository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found with given email"));
 
         return entityToDto(user);
     }

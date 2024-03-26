@@ -1,5 +1,6 @@
 package com.zia.electronix.express.dtos;
 
+import com.zia.electronix.express.validate.ImageNameValid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -26,5 +27,6 @@ public class UserDto {
     @Size(min = 4,max = 6, message = "Invalid gender")
     private String gender;
 
+    @ImageNameValid
     private String imageName;
 }

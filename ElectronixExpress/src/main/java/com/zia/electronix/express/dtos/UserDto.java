@@ -25,4 +25,6 @@ public class UserDto {
 
     @Size(min = 4,max = 6, message = "Invalid gender")
     private String gender;
+
+    private String imageName;
 }

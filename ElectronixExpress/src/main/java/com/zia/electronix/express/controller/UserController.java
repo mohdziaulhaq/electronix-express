@@ -48,7 +48,7 @@ public class UserController {
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
             ){
-       List<UserDto> listOfUsers =  userService.getAllUsers();
+       List<UserDto> listOfUsers =  userService.getAllUsers(pageNumber,pageSize);
        return new ResponseEntity<>(listOfUsers, HttpStatus.OK);
     }
     //getsingle

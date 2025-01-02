@@ -1,6 +1,7 @@
 package com.zia.electronix.express.controller;
 
 import com.zia.electronix.express.dtos.ApiResponseMessage;
+import com.zia.electronix.express.dtos.PageableResponse;
 import com.zia.electronix.express.dtos.UserDto;
 import com.zia.electronix.express.services.UserService;
 import jakarta.validation.Valid;
@@ -44,7 +45,7 @@ public class UserController {
     }
     //getall
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers(
+    public ResponseEntity<PageableResponse<UserDto>> getAllUsers(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = "name", required = false) String sortBy,
@@ -52,7 +53,7 @@ public class UserController {
             ){
 
         System.out.println("pagination");
-       List<UserDto> listOfUsers =  userService.getAllUsers(pageNumber,pageSize,sortBy, sortOrder);
+       PageableResponse<UserDto> listOfUsers = userService.getAllUsers(pageNumber,pageSize,sortBy, sortOrder);
        return new ResponseEntity<>(listOfUsers, HttpStatus.OK);
     }
     //getsingle

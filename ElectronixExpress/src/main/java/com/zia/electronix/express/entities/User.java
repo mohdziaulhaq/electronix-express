@@ -25,4 +25,7 @@ public class User {
     private String password;
 
     private String gender;
+
+    @Column(name = "user_image_name")
+    private String imageName;
 }

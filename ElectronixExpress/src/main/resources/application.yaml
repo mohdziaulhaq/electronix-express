@@ -39,3 +39,5 @@ user:
     image-path: images/users/
 category:
   image-path: images/category/
+product:
+  image-path: images/products/

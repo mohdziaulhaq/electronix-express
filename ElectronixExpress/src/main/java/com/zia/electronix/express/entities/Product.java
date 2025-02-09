@@ -1,9 +1,6 @@
 package com.zia.electronix.express.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +31,13 @@ public class Product {
 
     private Date dateAdded;
 
-    private boolean isLive;
+    private boolean live;
 
     private boolean inStock;
+
+    private String productImageName;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

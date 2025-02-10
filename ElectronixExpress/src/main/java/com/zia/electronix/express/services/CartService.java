@@ -9,7 +9,7 @@ public interface CartService {
     // case2: card is available: add items to cart
 
     CartDto addItemToCart(String userId, AddItemToCartRequest request);
-    void removeItemFromCart(int cartItemId);
+    void removeItemFromCart(String userId,int cartItemId);
     void clearCart(String userId);
     CartDto getCart(String userId);
 }

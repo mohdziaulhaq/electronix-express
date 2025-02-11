@@ -74,13 +74,16 @@ public class CartServiceImpl implements CartService {
         List<CartItem> updatedItems = items.stream().map(item ->{
             if(item.getProduct().getProductId().equals(productId)){
                 //item present in cart
-                item.setQuantity(item.getQuantity() + quantity);
+                item.setQuantity(quantity);
                 item.setTotalPrice(item.getProduct().getDiscountedPrice() * quantity);
                 updated.set(true);
             }
             return item;
         }).collect(Collectors.toList());
-        cart.setItems(updatedItems);
+//        cart.setItems(updatedItems);
+
+        cart.getItems().clear();  // Remove existing items
+        cart.getItems().addAll(updatedItems);  // Add new items
 
         if(!updated.get()){
             CartItem cartItem = CartItem.builder()

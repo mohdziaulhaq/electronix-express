@@ -12,12 +12,11 @@
 #spring.jpa.show-sql=true
 #spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
-
+server:
+  port: 8080
 spring:
   application:
     name: ElectronixExpress
-  server:
-    port: 9090
   datasource:
     url: jdbc:mysql://localhost:3306/electronix_express
     username: root

@@ -26,7 +26,7 @@ public class CartController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<CartDto> addItemToCart(
+    public ResponseEntity<CartDto> GetAllItemsFromCart(
             @PathVariable String userId) {
         CartDto cartDto = cartService.getCart(userId);
         return new ResponseEntity<>(cartDto, HttpStatus.CREATED);

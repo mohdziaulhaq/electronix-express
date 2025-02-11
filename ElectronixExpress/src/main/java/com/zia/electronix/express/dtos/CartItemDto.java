@@ -1,9 +1,14 @@
 package com.zia.electronix.express.dtos;
 
-import com.zia.electronix.express.entities.Cart;
-import com.zia.electronix.express.entities.Product;
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartItemDto {
 
     private int cartItemId;
